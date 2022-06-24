@@ -417,7 +417,7 @@ if st.checkbox("Compare watchlist to another user"):
     usersDrop = st.selectbox("Pick another user to compare watchlists:", allUsers)
     otherUserDF = collect(db, usersDrop)
     st.header("{} Watchlist".format(usersDrop))
-    st.dataframe(otherUserDF, key='other_df')
+    st.dataframe(otherUserDF)
 
 
 currencyMap = {'GBp':'GBp','USD':'US$','CAD':'C$','JPY':'¥'}
