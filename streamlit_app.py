@@ -203,7 +203,7 @@ def cleanDF(df):
             df[col] = pd.to_numeric(df[col])
     return df 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def initialGrab(activeUser):
     grabSavedList()
 
