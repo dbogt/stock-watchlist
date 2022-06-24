@@ -414,7 +414,7 @@ if st.button("Refresh pricing"):
     for ticker in tickers:
         newPrice = grabPricing(ticker,"regularMarketPrice")
         newPrices.append(newPrice)
-    df['New Price'] = newPrices
+    df['Price'] = newPrices
 
 st.dataframe(df.style.format(portFormats,na_rep="-").apply(targetHighlight, axis=1))
 
