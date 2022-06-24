@@ -311,6 +311,9 @@ testDF = collect(db) #dummy watchlist
 allUsers = sheetNames(db)
 #activeUser = st.user['email']
 activeUser = st.experimental_user['email']
+if not activeUser:
+    st.write("not logged in enter email below instead")
+    activeUser = st.text_input("Enter email:")
 st.title("Stock Watch List")
 # initialGrab(str(activeUser))
 
