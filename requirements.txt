@@ -1,0 +1,8 @@
+google-api-python-client
+google-auth
+google-auth-httplib2
+plotly==4.13.0
+beautifulsoup4==4.9.1
+urllib3==1.26.6
+openpyxl
+xlrd==1.2.0
