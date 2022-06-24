@@ -384,7 +384,7 @@ st.sidebar.write(st.session_state[activeUser])
 #%% Test dynamic tables
 df = pd.DataFrame.from_dict(st.session_state[activeUser], orient='index').reset_index()
 
-tableFormat = st.radio("Pick a table format for the watchlist", ('Dynamic Table','Conditional Formatted Table'))
+#tableFormat = st.radio("Pick a table format for the watchlist", ('Dynamic Table','Conditional Formatted Table'))
 st.write("Note: dataframe styling does not currently work with dynamic tables")
 buyPercent = st.number_input("% within buy target", value=0)
 sellPercent = st.number_input("% within sell target", value=0)
