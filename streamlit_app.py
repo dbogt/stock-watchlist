@@ -415,6 +415,10 @@ if st.button("Refresh pricing"):
         newPrice = grabPricing(ticker,"regularMarketPrice")
         newPrices.append(newPrice)
     df['Price'] = newPrices
+    if activeUser not in allUsers:
+        addTab(db, activeUser)
+    clear(db, activeUser)    
+    insert(db, df, activeUser)
 
 st.dataframe(df.style.format(portFormats,na_rep="-").apply(targetHighlight, axis=1))
 
