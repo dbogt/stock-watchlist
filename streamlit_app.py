@@ -386,14 +386,11 @@ df = pd.DataFrame.from_dict(st.session_state[activeUser], orient='index').reset_
 
 tableFormat = st.radio("Pick a table format for the watchlist", ('Dynamic Table','Conditional Formatted Table'))
 st.write("Note: dataframe styling does not currently work with dynamic tables")
-if tableFormat == 'Dynamic Table':
-    st.dataframe(df, key='my_df')
-elif tableFormat == 'Conditional Formatted Table':
-    buyPercent = st.number_input("% within buy target", value=0)
-    sellPercent = st.number_input("% within sell target", value=0)
-    st.write("Bolded green rows denote securities with a price within {:.0%} of target sell price.".format(sellPercent/100))
-    st.write("Bolded red rows denote securities with a price within {:.0%} of target buy price.".format(buyPercent/100))
-    st.dataframe(df.style.apply(targetHighlight, axis=1))
+buyPercent = st.number_input("% within buy target", value=0)
+sellPercent = st.number_input("% within sell target", value=0)
+st.write("Bolded green rows denote securities with a price within {:.0%} of target sell price.".format(sellPercent/100))
+st.write("Bolded red rows denote securities with a price within {:.0%} of target buy price.".format(buyPercent/100))
+st.dataframe(df.style.apply(targetHighlight, axis=1))
 
 saveBtn = st.button('Save Data')
 checkAlerts(df)
