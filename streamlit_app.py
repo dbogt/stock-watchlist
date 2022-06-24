@@ -311,9 +311,12 @@ testDF = collect(db) #dummy watchlist
 allUsers = sheetNames(db)
 #activeUser = st.user['email']
 activeUser = st.experimental_user['email']
+passw = 'xx'
 if not activeUser:
     st.write("not logged in enter email below instead")
     activeUser = st.text_input("Enter email:")
+    if activeUser == "bogdan.a.tudose@gmail.com":
+        passw = st.text_input("Enter admin password:",type='password')
 st.title("Stock Watch List")
 # initialGrab(str(activeUser))
 
@@ -345,7 +348,7 @@ st.write(activeUser)
 st.write("**Don't forget to press Save Data to store your watchlist for future runs!**")
 alertsContainer = st.container()
 
-if activeUser == "bogdan.a.tudose@gmail.com":
+if activeUser == "bogdan.a.tudose@gmail.com" and passw == st.secrets['pass']:
     with st.expander("Admin Only:"):
         st.write("Spreadsheet ID:" + spreadsheet_id)
         st.write("Sheet URL:" + sheet_url)
