@@ -183,13 +183,13 @@ def fnYFinJSON(stock, field):
 def updateDate():
     st.session_state['lastRefresh'] = datetime.now().strftime("%m-%d-%Y, %H:%M:%S")
 
-@st.cache
+#@st.cache
 def grabPricing(ticker, field, lastUpdate=st.session_state['lastRefresh']):
     fieldValue = fnYFinJSON(ticker, field)
     updateDate()
     return fieldValue
 
-@st.cache
+#@st.cache
 def grabPricingAll(ticker, interval, start, end, lastUpdate=st.session_state['lastRefresh']):
     df = fnYFinHist(ticker, interval, start, end)
     updateDate()
@@ -391,8 +391,6 @@ st.sidebar.write(st.session_state[activeUser])
 #%% Test dynamic tables
 df = pd.DataFrame.from_dict(st.session_state[activeUser], orient='index').reset_index()
 
-#tableFormat = st.radio("Pick a table format for the watchlist", ('Dynamic Table','Conditional Formatted Table'))
-st.write("Note: dataframe styling does not currently work with dynamic tables")
 buyPercent = st.number_input("% within buy target", value=0)
 sellPercent = st.number_input("% within sell target", value=0)
 st.write("Bolded green rows denote securities with a price within {:.0%} of target sell price.".format(sellPercent/100))
