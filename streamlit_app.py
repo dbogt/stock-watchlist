@@ -309,7 +309,8 @@ testDF = collect(db) #dummy watchlist
 
 #%% Main App
 allUsers = sheetNames(db)
-activeUser = st.user['email']
+#activeUser = st.user['email']
+activeUser = st.experimental_user['email']
 st.title("Stock Watch List")
 # initialGrab(str(activeUser))
 
