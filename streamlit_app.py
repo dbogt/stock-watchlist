@@ -301,6 +301,18 @@ def createExcel():
         df.to_excel(writer, sheet_name="MyWatchlist", index=True)
     return buffer
 
+#%% Formatting
+dollarDecimalCols = ['Price','Price Change','Buy Target','Sell Target']
+percentCols = ['% Change']
+formatMap = {'${:,.2f}':dollarDecimalCols,
+             '{:0.1%}':percentCols}
+portFormats = {}
+for formatCode, cols in formatMap.items():
+    for col in cols:
+        portFormats[col] = formatCode
+
+for col in dollarDecimalCols:
+    portFormats[col] = lambda x: "${:,.2f}".format(x) if x >= 0 else "(${:,.2f})".format(abs(x))
 
 
 #%% Connect to Google Sheets
@@ -395,7 +407,7 @@ buyPercent = st.number_input("% within buy target", value=0)
 sellPercent = st.number_input("% within sell target", value=0)
 st.write("Bolded green rows denote securities with a price within {:.0%} of target sell price.".format(sellPercent/100))
 st.write("Bolded red rows denote securities with a price within {:.0%} of target buy price.".format(buyPercent/100))
-st.dataframe(df.style.apply(targetHighlight, axis=1))
+st.dataframe(df.style.format(portFormats,na_rep="-").apply(targetHighlight, axis=1))
 
 saveBtn = st.button('Save Data')
 checkAlerts(df)
@@ -415,7 +427,7 @@ if st.checkbox("Compare watchlist to another user"):
     usersDrop = st.selectbox("Pick another user to compare watchlists:", allUsers)
     otherUserDF = collect(db, usersDrop)
     st.header("{} Watchlist".format(usersDrop))
-    st.dataframe(otherUserDF)
+    st.dataframe(otherUserDF.style.format(portFormats,na_rep="-").apply(targetHighlight, axis=1))
 
 
 currencyMap = {'GBp':'GBp','USD':'US$','CAD':'C$','JPY':'¥'}
