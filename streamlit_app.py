@@ -407,6 +407,15 @@ buyPercent = st.number_input("% within buy target", value=0)
 sellPercent = st.number_input("% within sell target", value=0)
 st.write("Bolded green rows denote securities with a price within {:.0%} of target sell price.".format(sellPercent/100))
 st.write("Bolded red rows denote securities with a price within {:.0%} of target buy price.".format(buyPercent/100))
+
+if st.button("Refresh pricing"):
+    tickers = list(df['index'])
+    newPrices = []
+    for ticker in tickers:
+        newPrice = grabPricing(ticker,"regularMarketPrice")
+        newPrices.append(newPrice)
+    df['New Price'] = newPrices
+
 st.dataframe(df.style.format(portFormats,na_rep="-").apply(targetHighlight, axis=1))
 
 saveBtn = st.button('Save Data')
